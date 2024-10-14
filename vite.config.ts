@@ -1,5 +1,6 @@
 import { rmSync } from 'node:fs'
 import { defineConfig } from 'vite'
+import UnoCSS from 'unocss/vite'
 import vue from '@vitejs/plugin-vue'
 import electron from 'vite-plugin-electron'
 import renderer from 'vite-plugin-electron-renderer'
@@ -16,6 +17,7 @@ export default defineConfig(({ command }) => {
   return {
     plugins: [
       vue(),
+	  UnoCSS(),
       electron([
         {
           // Main-Process entry file of the Electron App.
