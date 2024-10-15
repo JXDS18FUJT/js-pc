@@ -1,15 +1,15 @@
 import { rmSync } from 'node:fs'
 import { defineConfig } from 'vite'
-import UnoCSS from 'unocss/vite'
+
 import vue from '@vitejs/plugin-vue'
 import electron from 'vite-plugin-electron'
 import renderer from 'vite-plugin-electron-renderer'
 import pkg from './package.json'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
+export default defineConfig(async({ command }) => {
   rmSync('dist-electron', { recursive: true, force: true })
-
+  const UnoCSS = (await import('unocss/vite')).default
   const isServe = command === 'serve'
   const isBuild = command === 'build'
   const sourcemap = isServe || !!process.env.VSCODE_DEBUG
