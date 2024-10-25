@@ -6,6 +6,8 @@ import electron from 'vite-plugin-electron'
 import renderer from 'vite-plugin-electron-renderer'
 import pkg from './package.json'
 import path from 'path'
+import Components from 'unplugin-vue-components/vite'
+import VueRouter from 'unplugin-vue-router/vite'
 // https://vitejs.dev/config/
 export default defineConfig(async ({ command }) => {
 	rmSync('dist-electron', { recursive: true, force: true })
@@ -15,13 +17,21 @@ export default defineConfig(async ({ command }) => {
 	const sourcemap = isServe || !!process.env.VSCODE_DEBUG
 
 	return {
+
 		resolve: {
 			alias: {
 				"@": path.resolve(__dirname, "src"),
 			},
 		},
 		plugins: [
+			VueRouter({
+				routesFolder: 'src/views',
+			}),
 			vue(),
+			Components({
+				dts: true,
+				 globs: ['src/components/*.{vue}'],
+			}),
 			UnoCSS(),
 			electron([
 				{
