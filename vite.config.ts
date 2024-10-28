@@ -26,6 +26,8 @@ export default defineConfig(async ({ command }) => {
 		plugins: [
 			VueRouter({
 				routesFolder: 'src/views',
+				exclude: ['**/components/*.vue'],
+				 extensions: ['.vue'],
 			}),
 			vue(),
 			Components({

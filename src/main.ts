@@ -4,6 +4,7 @@ import App from './App.vue'
 import 'uno.css'
 import './samples/node-api'
 import router from './router'
+
 createApp(App).use(router)
   .mount('#app')
   .$nextTick(() => {
