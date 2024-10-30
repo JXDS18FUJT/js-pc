@@ -122,7 +122,16 @@ const applicationMenu : Electron.MenuItem = [{
 			win.webContents.openDevTools()
 		}
 
-	}, {
+	}, 
+	{
+		label: '重载页面',
+		accelerator: 'CmdOrCtrl+r',
+		click() {
+			
+		}
+	
+	},
+	{
 		label: '打开官网',
 		click() {
 			shell.openExternal('https://www.baidu.com/');
