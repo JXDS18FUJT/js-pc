@@ -24,7 +24,7 @@
 
 			</view>
 		</view>
-		<view class="inline-flex w-1200 m-auto h-193 flex-wrap">
+		<view class="inline-flex w-1200 m-auto h-200 flex-wrap">
 			<view @click="()=>{
 				carTypesIndex=index
 			}" v-for="(item,index) in carTypes" class="w-1/4 flex pt-63 justify-center flex-wrap">
@@ -44,7 +44,30 @@
 				</view>
 			</view>
 		</view>
-		<view>
+		
+		<view class="flex mt-35">
+			<view class="w-1240 m-auto inline-flex flex-wrap overflow-hidden">
+				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+					<img class="w-80 h-80" src="@/assets/home/必学考题@2x.png" />
+					<text class="text-30 lh-80">必学考题</text>
+				</view>
+				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+					<img class="w-80 h-80" src="@/assets/home/模拟考试@2x.png" />
+					<text class="text-30 lh-80">模拟考试</text>
+				</view>
+				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+					<img class="w-80 h-80" src="@/assets/home/我的收藏@2x.png" />
+					<text class="text-30 lh-80">我的收藏</text>
+				</view>
+				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+					<img class="w-80 h-80" src="@/assets/home/用户管理@2x.png" />
+					<text class="text-30 lh-80">用户管理</text>
+				</view>
+				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+					<img class="w-80 h-80" src="@/assets/home/分类练习@2x.png" />
+					<text class="text-30 lh-80">分类练习</text>
+				</view>
+			</view>
 			
 		</view>
 	</view>
@@ -87,8 +110,9 @@
 	.bg-gradient-1 {
 		background: linear-gradient(131deg, #26A1EE 0%, #498EF5 100%);
 	}
-	.subject:hover{
+
+	.subject:hover {
 		border: 1px solid #498EF5;
-		
+
 	}
 </style>

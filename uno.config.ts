@@ -35,6 +35,19 @@ export default defineConfig({
 		[/^pb-(\d+)$/, ([, d]) => ({
 			'padding-bottom': `${d}rem`
 		})],
+		
+		[/^mr-(\d+)$/, ([, d]) => ({
+			'margin-right': `${d}rem`
+		})],
+		[/^ml-(\d+)$/, ([, d]) => ({
+			'margin-left': `${d}rem`
+		})],
+		[/^mt-(\d+)$/, ([, d]) => ({
+			'margin-top': `${d}rem`
+		})],
+		[/^mb-(\d+)$/, ([, d]) => ({
+			'margin-bottom': `${d}rem`
+		})],
 		[/^text-(\d+)$/, ([, d]) => ({
 			'font-size': `${d}rem`
 		})],

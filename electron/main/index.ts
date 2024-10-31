@@ -125,9 +125,9 @@ const applicationMenu : Electron.MenuItem = [{
 	}, 
 	{
 		label: '重载页面',
-		accelerator: 'CmdOrCtrl+r',
 		click() {
-			
+			win.webContents.reload()
+			console.log(win.webContents.getTitle())
 		}
 	
 	},
