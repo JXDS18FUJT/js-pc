@@ -1,10 +1,10 @@
 <template>
 	<view>
 		<view class="relative block text-0">
-			<img class="w-full" src="@/assets/home/头图2@2x.png" />
+			<img class="w-full" src="@/assets/img/home/头图2@2x.png" />
 			<view class="left-1386 top-84 absolute flex items-center text-white">
 				<view class="pr-20 text-24">欢迎登陆</view>
-				<img class="w-76" src="@/assets/home/会员头像@2x.png" />
+				<img class="w-76" src="@/assets/img/home/会员头像@2x.png" />
 			</view>
 
 		</view>
@@ -47,24 +47,24 @@
 		
 		<view class="flex mt-35">
 			<view class="w-1240 m-auto inline-flex flex-wrap overflow-hidden">
-				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
-					<img class="w-80 h-80" src="@/assets/home/必学考题@2x.png" />
+				<router-link :to="'./classifyNecessary'" class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+					<img class="w-80 h-80" src="@/assets/img/home/必学考题@2x.png" />
 					<text class="text-30 lh-80">必学考题</text>
-				</view>
+				</router-link>
 				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
-					<img class="w-80 h-80" src="@/assets/home/模拟考试@2x.png" />
+					<img class="w-80 h-80" src="@/assets/img/home/模拟考试@2x.png" />
 					<text class="text-30 lh-80">模拟考试</text>
 				</view>
 				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
-					<img class="w-80 h-80" src="@/assets/home/我的收藏@2x.png" />
+					<img class="w-80 h-80" src="@/assets/img/home/我的收藏@2x.png" />
 					<text class="text-30 lh-80">我的收藏</text>
 				</view>
 				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
-					<img class="w-80 h-80" src="@/assets/home/用户管理@2x.png" />
+					<img class="w-80 h-80" src="@/assets/img/home/用户管理@2x.png" />
 					<text class="text-30 lh-80">用户管理</text>
 				</view>
 				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
-					<img class="w-80 h-80" src="@/assets/home/分类练习@2x.png" />
+					<img class="w-80 h-80" src="@/assets/img/home/分类练习@2x.png" />
 					<text class="text-30 lh-80">分类练习</text>
 				</view>
 			</view>
@@ -75,10 +75,14 @@
 
 <script setup name="home" lang="ts">
 	import { ref } from 'vue';
-	import xcIcon from '@/assets/home/轿车@2x.png'
-	import kcIcon from '@/assets/home/客车@2x.png'
-	import hcIcon from '@/assets/home/货车@2x.png'
-	import mtcIcon from '@/assets/home/摩托车@2x.png'
+	import xcIcon from '@/assets/img/home/轿车@2x.png'
+	import kcIcon from '@/assets/img/home/客车@2x.png'
+	import hcIcon from '@/assets/img/home/货车@2x.png'
+	import mtcIcon from '@/assets/img/home/摩托车@2x.png'
+	
+	defineOptions({
+		name:'home'
+	})
 	const carTypesIndex = ref(0)
 	const carTypes = ref([{
 		icon: xcIcon,

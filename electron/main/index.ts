@@ -103,13 +103,18 @@ const applicationMenu : Electron.MenuItem = [{
 		label: '前进',
 
 		click() {
-			win.webContents.openDevTools()
+			if (win.webContents.canGoForward()) {
+				win.webContents.goForward()
+			}
+
 		}
 
 	}, {
 		label: '后退',
 		click() {
-			shell.openExternal('https://www.baidu.com/');
+			if (win.webContents.canGoBack()) {
+				win.webContents.goBack()
+			}
 		}
 
 	}]
@@ -122,14 +127,14 @@ const applicationMenu : Electron.MenuItem = [{
 			win.webContents.openDevTools()
 		}
 
-	}, 
+	},
 	{
 		label: '重载页面',
 		click() {
-			win.webContents.reload()
+			win.webContents.reloadIgnoringCache()
 			console.log(win.webContents.getTitle())
 		}
-	
+
 	},
 	{
 		label: '打开官网',
