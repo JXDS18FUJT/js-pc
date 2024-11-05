@@ -34,11 +34,11 @@
 		<view class="flex justify-center">
 			<view class="flex justify-between w-710">
 				<view class="flex flex-col">
-					<view :style="{
+					<router-link to="./exercise" :style="{
 						backgroundImage:'url('+classifyNecessary1+')',
 					}" class="relative w-270 h-80 lh-80 text-30 text-left bg-no-repeat bg-[length:100%] pl-106 mb-60">
 						<text>精选必学1</text>
-					</view>
+					</router-link>
 					
 					<view :style="{
 						backgroundImage:'url('+classifyNecessary3+')',
@@ -68,10 +68,10 @@
 				</view>
 			</view>
 		</view>
-		<view class="w-1200 block h-304 pt-24 pl-20 m-auto border-tip">
-			<view class="w-1160 block h-256 bg-white rd-20px">
+		<view class="w-1200 block  pt-24 pl-20 pb-20 m-auto border-tip">
+			<view class="w-1160 block bg-white rd-20px">
 				<view class="block text-center text-30 pt-26">老题分析与学习要求</view>
-				<view class="text-left flex flex-wrap pt-30 pl-78 pr-78">
+				<view class="text-left flex flex-wrap pt-30 pl-78 pr-78 text-20 pb-30">
 					<view class="w-full">1.精选必学500+强化(快速通关)，涵盖了驾考理论各类题库的重点难点;</view>
 					<view class="w-full">2.根据数据分析，总结500万+用户的线下互动通关经验，精选必学核心题库，减少2300+题的学习量，用更少的时间掌握驾考知识点:</view>
 					<view class="w-full">3.针对时间紧、记忆差、畏惧考试的学员，举一反三，轻松学会!</view>

@@ -18,6 +18,7 @@ console.log("[App.vue]", `Hello world from Electron ${process.versions.electron}
 }
 * {
   margin: 0;
+  box-sizing: border-box;
 }
 html, body {
   height: 100%;
