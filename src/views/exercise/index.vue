@@ -1,12 +1,12 @@
 <template>
 	<view class="w-1920 block">
-		<view class="w-full h-466 flex pt-30 pl-30 flex-col items-start flex-wrap justify-start">
+		<view class="w-full h-466 flex pt-30 pl-30 flex-col items-start content-start flex-wrap justify-start">
 
 			<view class="flex flex-col relative w-162 h-39 border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
 				<view class="text-14 pt-10">第 01 考台</view>
 			</view>
-			<view class="flex flex-col relative mt-30 w-162 h-340 pt-23 border-1px border-solid border-[#D6D9DDFF]">
+			<view class="flex flex-col relative mt-30 w-162 h-367 pt-23 border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
 				<view>
 					<img class="w-118 rd-[50%]"
@@ -21,7 +21,7 @@
 				</view>
 
 			</view>
-			<view class="w-1320 h-466 relative border-1px border-solid border-[#D6D9DDFF]">
+			<view class="w-1320 h-466 ml-19 relative border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
 			</view>
 		</view>
@@ -29,16 +29,16 @@
 
 
 
-		<view class="w-full block border-b-1px border-b-solid border-b-[#ff4400]">网格</view>
+		<view class="w-full block"></view>
 		<view class="pb-20 pt-20 pl-20 pr-20 block text-left">
-			<view class="w-400px h-400px absolute z-99 flex flex-wrap items-start">
+			<view class="w-400 h-400 absolute z-99 flex flex-wrap items-start">
 				<view v-for="item in 100" :key="item"
-					class="w-40px flex-0 h-40px text-center lh-40px  text-[#0A1A33FF]">
+					class="w-40 flex-0 h-40 text-center lh-40  text-[#0A1A33FF] text-14">
 					{{item}}
 				</view>
 			</view>
 
-			<canvas class="w-400px h-400px" width="400" height="400" id="grid"></canvas>
+			<canvas class="w-400 h-400" width="400" height="400" id="grid"></canvas>
 		</view>
 
 	</view>
