@@ -1,20 +1,25 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "strict": true,
-    "jsx": "preserve",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
-    "noEmit": true,
-	"moduleResolution": "Bundler"
-  },
-  "include": ["src","./typed-router.d.ts"],
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+	"compilerOptions": {
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"strict": true,
+		"jsx": "preserve",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"lib": ["ESNext", "DOM"],
+		"skipLibCheck": true,
+		"noEmit": true,
+		"moduleResolution": "Bundler",
+		"paths": {
+			"@/*": [
+				"src/*"
+			]
+		}
+	},
+	"include": ["src", "./typed-router.d.ts"],
+	"references": [{
+		"path": "./tsconfig.node.json"
+	}]
 }

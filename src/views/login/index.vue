@@ -17,7 +17,7 @@
 			scope: "snsapi_login",
 			redirect_uri: encodeURI("https://1p071c808.vicp.fun/login/webcode"),
 			state: "2",
-			style: "black",//二维码黑白风格
+			style: "black",//二维码黑白风格 
 			href: ""
 		})
 		console.log(obj)
