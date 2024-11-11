@@ -4,6 +4,7 @@ import App from './App.vue'
 import 'uno.css'
 import './samples/node-api'
 import router from './router'
+import store from './store'
 
 function setRootFontSize() {
 
@@ -30,7 +31,7 @@ window.addEventListener('resize', setRootFontSize);
 
 setRootFontSize();
 
-createApp(App).use(router)
+createApp(App).use(router).use(store)
 	.mount('#app')
 	.$nextTick(() => {
 		postMessage({ payload: 'removeLoading' }, '*')

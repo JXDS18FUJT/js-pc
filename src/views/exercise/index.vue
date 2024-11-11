@@ -1,6 +1,6 @@
 <template>
-	<view class="w-1920 block">
-		<view class="w-full h-466 flex pt-30 pl-20 flex-col items-start content-start flex-wrap justify-start">
+	<view class="w-full block">
+		<view class="w-full h-456 flex pt-20 pl-20 flex-col items-start content-start flex-wrap justify-start">
 			<view class="flex flex-col relative w-162 h-39 border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
 				<view class="text-14 pt-10">第 01 考台</view>
@@ -25,49 +25,107 @@
 				<view class="text-left block pt-30 pl-30">
 					{{listIndex+1}}.<text v-if="list[listIndex].questionType==1"
 						class="border-1px text-12 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">判断题</text>
-						<text v-if="list[listIndex].questionType==2" class="border-1px text-12 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">选择题</text>
-						{{list[listIndex].issue}}
+					<text v-if="list[listIndex].questionType==2"
+						class="border-1px text-12 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">选择题</text>
+					{{list[listIndex].issue}}
 
+				</view>
+				<view class="pt-19 pl-30 flex w-full h-30">
+					<view
+						class="border-1px border-solid border-[#D6D9DDFF] w-68 h-30 items-center flex justify-center rd-5px">
+						<img class="w-16 h-16" src="@/assets/img/exercise/收藏灰@2x.png" />
+						<text class="text-15 pl-4">收藏</text>
+					</view>
+
+					<view
+						class="ml-15 border-1px border-solid border-[#FE3B2BFF] w-84 h-30 items-center flex justify-center rd-5px">
+						<img class="w-16 h-16" src="@/assets/img/exercise/关键字@2x.png" />
+						<text class="text-15 pl-4">关键字</text>
+					</view>
+
+					<view
+						class="ml-15 border-1px border-solid border-[#4688EBFF] w-84 h-30 items-center flex justify-center rd-5px">
+						<img class="w-16 h-16" src="@/assets/img/exercise/读题@2x.png" />
+						<text class="text-15 pl-4">读题</text>
+					</view>
+				</view>
+				<view class="pl-30 mt-197 h-40 lh-40 w-full flex justify-between items-center content-center text-left">
+					<view>您选择的答案：<text>√</text></view>
+					<view class="w-435 lh-40 flex">
+						请选择答案：
+						<view class="h-40 text-center mr-12 text-20 lh-40 w-40 border-1px border-solid border-[#959799FF]">
+							√
+						</view>
+						<view class="h-40 text-center mr-12 text-20 lh-40 w-40 border-1px border-solid border-[#959799FF]">
+							×
+						</view>
+					</view>
+				</view>
+				
+				<view class="pl-30 mt-23 h-40 lh-40 w-full flex justify-between items-center content-center text-left">
+					<view>正确答案：<text>√</text></view>
+					<view class="w-435 lh-40 flex">
+						
+						<view @click="preProblem()" class="hover:bg-[#EEF1F5FF] cursor-pointer h-40 text-center mr-15 text-20 lh-40 w-124 border-1px border-solid border-[#959799FF] rd-5px">
+							上一题
+						</view>
+						<view @click="nextProblem()" class="hover:bg-[#EEF1F5FF] cursor-pointer h-40 text-center mr-15 text-20 lh-40 w-124 border-1px border-solid border-[#959799FF] rd-5px">
+							下一题
+						</view>
+						<view class="hover:bg-[#EEF1F5FF] cursor-pointer h-40 text-center mr-15 text-20 lh-40 w-124 border-1px border-solid border-[#959799FF] rd-5px">
+							交卷
+						</view>
+					</view>
 				</view>
 			</view>
 		</view>
 
-		<view class="w-full block pt-30 pl-20 flex">
-			<view class="flex flex-col relative w-162 h-54  border-1px border-solid border-[#D6D9DDFF]">
+		<view class="w-full block pt-20 pl-20 flex">
+			<view class="flex flex-col relative w-162 h-40  border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
 				<view class="text-14 pt-10">{{countDown}}</view>
 			</view>
-			<view class="w-759 h-54 border-1px border-solid border-[#D6D9DDFF] ml-19 relative">
+			<view class="w-759 h-40 lh-40 border-1px border-solid border-[#D6D9DDFF] ml-19 relative">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">提示信息</view>
 				<view>判断题，请选择对错</view>
 			</view>
-			<view class="w-540 h-54 flex ml-20 justify-between">
-				<view class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px">
+			<view class="w-540 h-40 flex ml-20 justify-between">
+				<view
+					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					返回首页
 				</view>
-				<view class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px">
+				<view
+					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					语音技巧
 				</view>
-				<view class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px">
+				<view
+					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					官方解读
 				</view>
-				<view class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px">
+				<view
+					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					功能设置
 				</view>
 			</view>
 		</view>
-		<view class="pb-20 pt-20 pl-20 pr-20 block text-left ">
-			<view class="relative border-1px border-solid border-[#959799FF] inline-block text-0 pt-20 pb-20 pl-20 pr-20">
+		<view class="pb-20 pt-20 pl-20 pr-20 flex text-left ">
+			<view
+				class="relative h-442 flex-0 border-1px border-solid border-[#D6D9DDFF] inline-block text-0 pt-20 pb-20 pl-20 pr-20">
 				<view class="w-400 h-400 absolute z-99 flex flex-wrap items-start">
 					<view v-for="item in 100" :key="item"
 						class="w-40 flex-0 h-40 text-center lh-40  text-[#0A1A33FF] text-14">
 						{{item}}
 					</view>
 				</view>
-				
+
 				<canvas class="w-400 h-400" width="400" height="400" id="grid"></canvas>
 			</view>
-			
+			<view class="flex-0 w-1045 text-center block h-442 pt-20 relative ml-20 border-1px border-solid border-[#D6D9DDFF]">
+				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">图片信息</view>
+				<img class="h-402" :src="list[listIndex].image" v-if="list[listIndex].image" />
+			</view>
+
+
 		</view>
 
 	</view>
