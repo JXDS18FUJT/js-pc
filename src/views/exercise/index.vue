@@ -22,14 +22,14 @@
 			</view>
 			<view class="w-1320 h-466 ml-19 relative border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
-				<view class="text-left block pt-30 pl-30">
+				<view class="text-left block pt-30 pl-30 ">
 					{{listIndex+1}}.<text v-if="list[listIndex].questionType==1"
-						class="border-1px text-12 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">判断题</text>
+						class="border-1px text-18 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">判断题</text>
 					<text v-if="list[listIndex].questionType==2"
-						class="border-1px text-12 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">选择题</text>
+						class="border-1px text-18 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">选择题</text>
 					<text v-if="list[listIndex].questionType==3"
-						class="border-1px text-12 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">多选题</text>
-					{{list[listIndex].issue}}
+						class="border-1px text-18 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">多选题</text>
+					<text class="text-18 ml-16">{{list[listIndex].issue}}</text>
 
 				</view>
 				<view class="pt-19 pl-30 flex w-full h-30">
@@ -51,7 +51,7 @@
 						<text class="text-15 pl-4">读题</text>
 					</view>
 				</view>
-				<view class="h-197 w-full block text-left pl-30 pt-40">
+				<view class="h-auto w-full block text-left pl-30 pt-40 ">
 					<view class="block w-full" v-for="(item,index) in list[listIndex].optsArr">
 						{{switchIndexBySelect(index)}}.{{item}}
 					</view>
@@ -96,9 +96,11 @@
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
 				<view class="text-14 pt-10">{{countDown}}</view>
 			</view>
-			<view class="w-759 h-40 lh-40 border-1px border-solid border-[#D6D9DDFF] ml-19 relative">
+			<view class="w-759 h-40 lh-40 border-1px border-solid border-[#D6D9DDFF] ml-19 relative text-16">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">提示信息</view>
-				<view>判断题，请选择对错</view>
+				<view v-if="list[listIndex].questionType==1">判断题，请选择对错</view>
+				<view v-if="list[listIndex].questionType==2">选择题，请选择正确选项</view>
+				<view v-if="list[listIndex].questionType==3">多选题，请选择正确选项</view>
 			</view>
 			<view class="w-540 h-40 flex ml-20 justify-between">
 				<view
