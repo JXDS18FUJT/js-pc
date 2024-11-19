@@ -60,13 +60,17 @@
 					<view>您选择的答案：<text>√</text></view>
 					<view class="w-435 lh-40 flex">
 						请选择答案：
-						<view v-for="(item,index) in list[listIndex].optsArr"
+						<view @click="list[listIndex].isComplete ? '': setUserAnswer(item)" 
+						:class="{
+							'bg-[#EEF1F5FF]':list[listIndex].userAnswer==item
+						}"
+						 v-for="(item,index) in list[listIndex].optsArr"
 							class="h-40 hover:bg-[#EEF1F5FF] cursor-pointer text-center mr-12 text-20 lh-40 w-40 border-1px border-solid border-[#959799FF] rd-5px">
 							<view v-if="list[listIndex].questionType==1">{{switchIndexByJudge(index)}}</view>
-							<view v-if="list[listIndex].questionType==2">{{switchIndexBySelect(index)}}</view>
+							<view  v-if="list[listIndex].questionType>1">{{switchIndexBySelect(index)}}</view>
 							<!-- 	<view>{{item}}</view> -->
 						</view>
-
+						<view v-if="list[listIndex].questionType==3" class="w-60 rd-5px text-center cursor-pointer hover:bg-[#EEF1F5FF] h-40 border-1px border-solid border-[#959799FF]">确定</view>
 					</view>
 				</view>
 
@@ -124,11 +128,12 @@
 		<view class="pb-20 pt-20 pl-20 pr-20 flex text-left ">
 			<view
 				class="relative h-442 flex-0 border-1px border-solid border-[#D6D9DDFF] inline-block text-0 pt-20 pb-20 pl-20 pr-20">
-				<view class="w-400 h-400 flex flex-wrap items-start">
-					<view v-for="(item,index) in 100" :key="item"
+				<view class="w-400 h-400 flex flex-wrap items-start content-start">
+					<view v-for="(item,index) in list.length" :key="item"
 						class="w-40 h-40 text-center text-[#0A1A33FF] text-14 hover:bg-[#EEF1F5FF]">
 						<view class="block w-full">{{item}}</view>
-						<view class="block w-full">{{'A'}}</view>
+						<view v-if="list[index].isComplete&&list[index].questionType==1" class="block w-full">{{list[index].userAnswer}}</view>
+						<view v-if="list[index].isComplete&&list[index].questionType>1" class="block w-full">{{switchAnswerBySelect(list[index].userAnswer,index)}}</view>
 
 
 					</view>

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { message, Modal } from 'ant-design-vue';
 import router from '@/router';
 const request = axios.create({
