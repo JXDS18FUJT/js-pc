@@ -34,19 +34,19 @@
 				</view>
 				<view class="pt-19 pl-30 flex w-full h-30">
 					<view
-						class="border-1px border-solid border-[#D6D9DDFF] w-68 h-30 items-center flex justify-center rd-5px">
+						class="border-1px cursor-pointer border-solid border-[#D6D9DDFF] w-68 h-30 items-center flex justify-center rd-5px">
 						<img class="w-16 h-16" src="@/assets/img/exercise/收藏灰@2x.png" />
 						<text class="text-15 pl-4">收藏</text>
 					</view>
 
 					<view
-						class="ml-15 border-1px border-solid border-[#FE3B2BFF] w-84 h-30 items-center flex justify-center rd-5px">
+						class="ml-15 cursor-pointer border-1px border-solid border-[#FE3B2BFF] w-84 h-30 items-center flex justify-center rd-5px">
 						<img class="w-16 h-16" src="@/assets/img/exercise/关键字@2x.png" />
 						<text class="text-15 pl-4">关键字</text>
 					</view>
 
 					<view @click="playIssueAudio()"
-						class="ml-15 border-1px border-solid border-[#4688EBFF] w-84 h-30 items-center flex justify-center rd-5px">
+						class="ml-15 cursor-pointer border-1px border-solid border-[#4688EBFF] w-84 h-30 items-center flex justify-center rd-5px">
 						<img class="w-16 h-16" src="@/assets/img/exercise/读题@2x.png" />
 						<text class="text-15 pl-4">读题</text>
 					</view>
@@ -60,17 +60,17 @@
 					<view>您选择的答案：<text>√</text></view>
 					<view class="w-435 lh-40 flex">
 						请选择答案：
-						<view @click="list[listIndex].isComplete ? '': setUserAnswer(item)" 
-						:class="{
+						<view @click="list[listIndex].isComplete ? '': setUserAnswer(item)" :class="{
 							'bg-[#EEF1F5FF]':list[listIndex].userAnswer==item
-						}"
-						 v-for="(item,index) in list[listIndex].optsArr"
+						}" v-for="(item,index) in list[listIndex].optsArr"
 							class="h-40 hover:bg-[#EEF1F5FF] cursor-pointer text-center mr-12 text-20 lh-40 w-40 border-1px border-solid border-[#959799FF] rd-5px">
 							<view v-if="list[listIndex].questionType==1">{{switchIndexByJudge(index)}}</view>
-							<view  v-if="list[listIndex].questionType>1">{{switchIndexBySelect(index)}}</view>
+							<view v-if="list[listIndex].questionType>1">{{switchIndexBySelect(index)}}</view>
 							<!-- 	<view>{{item}}</view> -->
 						</view>
-						<view v-if="list[listIndex].questionType==3" class="w-60 rd-5px text-center cursor-pointer hover:bg-[#EEF1F5FF] h-40 border-1px border-solid border-[#959799FF]">确定</view>
+						<view v-if="list[listIndex].questionType==3"
+							class="w-60 rd-5px text-center cursor-pointer hover:bg-[#EEF1F5FF] h-40 border-1px border-solid border-[#959799FF]">
+							确定</view>
 					</view>
 				</view>
 
@@ -98,7 +98,7 @@
 		<view class="w-full block pt-20 pl-20 flex">
 			<view class="flex flex-col relative w-162 h-40  border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
-				<view class="text-14 pt-10">{{countDown}}</view>
+				<view class="text-14 pt-10 text-[#4688EBFF]">{{countDown}}</view>
 			</view>
 			<view class="w-759 h-40 lh-40 border-1px border-solid border-[#D6D9DDFF] ml-19 relative text-16">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">提示信息</view>
@@ -111,11 +111,11 @@
 					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					返回首页
 				</view>
-				<view
+				<view @click="playSkillAudio()"
 					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					语音技巧
 				</view>
-				<view
+				<view @click="playExplainAudio()"
 					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					官方解读
 				</view>
@@ -132,8 +132,10 @@
 					<view v-for="(item,index) in list.length" :key="item"
 						class="w-40 h-40 text-center text-[#0A1A33FF] text-14 hover:bg-[#EEF1F5FF]">
 						<view class="block w-full">{{item}}</view>
-						<view v-if="list[index].isComplete&&list[index].questionType==1" class="block w-full">{{list[index].userAnswer}}</view>
-						<view v-if="list[index].isComplete&&list[index].questionType>1" class="block w-full">{{switchAnswerBySelect(list[index].userAnswer,index)}}</view>
+						<view v-if="list[index].isComplete&&list[index].questionType==1" class="block w-full">
+							{{list[index].userAnswer}}</view>
+						<view v-if="list[index].isComplete&&list[index].questionType>1" class="block w-full">
+							{{switchAnswerBySelect(list[index].userAnswer,index)}}</view>
 
 
 					</view>

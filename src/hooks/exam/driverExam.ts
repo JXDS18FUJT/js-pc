@@ -545,6 +545,15 @@ export const useDriverExam = (requestFn: Promise<openApi.selectFreeQuestionInfoR
     audio.stopAudio()
     audio.playAudio(list.value[listIndex.value].issuemp3)
   }
+	  
+  const playSkillAudio = ()=>{
+	  audio.stopAudio()
+	  audio.playAudio(list.value[listIndex.value].explainjsmp3)
+  }
+  const playExplainAudio = ()=>{
+  	  audio.stopAudio()
+  	  audio.playAudio(list.value[listIndex.value].explainMp3)
+  }
   const getProblemTypeName = (type: number) => {
     let name = "";
     switch (type) {
@@ -1007,7 +1016,9 @@ export const useDriverExam = (requestFn: Promise<openApi.selectFreeQuestionInfoR
     submitDriveExam,
     deleteAllWrong,
     setIsSkipWrong,
-    setPageToListIndex
+    setPageToListIndex,
+	playSkillAudio,
+	playExplainAudio
 
   }
 
