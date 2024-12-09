@@ -29,8 +29,8 @@
 						class="border-1px text-18 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">选择题</text>
 					<text v-if="list[listIndex].questionType==3"
 						class="border-1px text-18 border-solid border-[#707070FF] pl-2 pr-2 pt-2 pb-2 rd-5px">多选题</text>
-					<text class="text-18 ml-16">{{list[listIndex].issue}}</text>
-
+					<text v-if="!list[listIndex].isRedIssue" class="text-18 ml-16">{{list[listIndex].issue}}</text>
+					<text v-if="list[listIndex].isRedIssue" v-html="issueRed()" class="text-18 ml-16"></text>
 				</view>
 				<view class="pt-19 pl-30 flex w-full h-30">
 					<view
@@ -39,8 +39,9 @@
 						<text class="text-15 pl-4">收藏</text>
 					</view>
 
-					<view
-						class="ml-15 cursor-pointer border-1px border-solid border-[#FE3B2BFF] w-84 h-30 items-center flex justify-center rd-5px">
+					<view @click="()=>{
+							list[listIndex].isRedIssue = true
+						}" class="ml-15 cursor-pointer border-1px border-solid border-[#FE3B2BFF] w-84 h-30 items-center flex justify-center rd-5px">
 						<img class="w-16 h-16" src="@/assets/img/exercise/关键字@2x.png" />
 						<text class="text-15 pl-4">关键字</text>
 					</view>
@@ -129,15 +130,16 @@
 			<view
 				class="relative h-442 flex-0 border-1px border-solid border-[#D6D9DDFF] inline-block text-0 pt-20 pb-20 pl-20 pr-20">
 				<view class="w-400 h-400 flex flex-wrap items-start content-start">
-					<view v-for="(item,index) in list.length" :key="item"
-						class="w-40 h-40 text-center text-[#0A1A33FF] text-14 hover:bg-[#EEF1F5FF]">
+					<view v-for="(item,index) in list.length" @click="()=>{
+						listIndex = index
+					}" :key="item" class="w-40 h-40 text-center text-[#0A1A33FF] text-14 hover:bg-[#EEF1F5FF] cursor-pointer">
 						<view class="block w-full">{{item}}</view>
 						<view v-if="list[index].isComplete&&list[index].questionType==1" class="block w-full">
-							{{list[index].userAnswer}}</view>
+							{{list[index].userAnswer}}
+						</view>
 						<view v-if="list[index].isComplete&&list[index].questionType>1" class="block w-full">
-							{{switchAnswerBySelect(list[index].userAnswer,index)}}</view>
-
-
+							{{switchAnswerBySelect(list[index].userAnswer,index)}}
+						</view>
 					</view>
 				</view>
 
@@ -160,7 +162,7 @@
 	import { onMounted, ref } from "vue"
 	import { useDriverExam } from "@/hooks/exam/driverExam";
 	import api from "@/api";
-
+	import { Image } from 'ant-design-vue';
 	export default {
 		name: 'exercise',
 		setup() {
@@ -210,6 +212,9 @@
 					columnAll: '87'
 				}))
 			}
+		},
+		components: {
+			aImage: Image
 		}
 
 	}

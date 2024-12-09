@@ -751,6 +751,12 @@ export const useDriverExam = (requestFn: Promise<openApi.selectFreeQuestionInfoR
     }
     return redIssue
   }
+  
+  const issueRed = () => {
+    let redIssue = list.value[listIndex.value].issue
+      redIssue = redIssue.replace(list.value[listIndex.value].titlekeyword, '<span style="color:red">' + list.value[listIndex.value].titlekeyword + '</span>')
+    return redIssue
+  }
   //驾驶考试提交
   const submitDriveExam = (isUploadScore?:boolean) => {
     setUserAnswerAndRes(list.value[listIndex.value].userAnswer)
@@ -1018,7 +1024,8 @@ export const useDriverExam = (requestFn: Promise<openApi.selectFreeQuestionInfoR
     setIsSkipWrong,
     setPageToListIndex,
 	playSkillAudio,
-	playExplainAudio
+	playExplainAudio,
+	issueRed
 
   }
 

@@ -62,6 +62,7 @@ export declare namespace questionApi {
             subject: number
             titlekeyword: string
             updateTime: string
+			isRedIssue?:boolean
 
         }[]
     }

@@ -52,6 +52,7 @@ export declare namespace openApi {
             subject: number
             titlekeyword: string
             updateTime: string
+			isRedIssue?:boolean
 
         }[]
         total: number
