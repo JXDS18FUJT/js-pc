@@ -532,6 +532,8 @@ export const useDriverExam = (requestFn: Promise<openApi.selectFreeQuestionInfoR
     userAnswer: "",
     optsArr: ["√", "×"],
   }])
+  const previewImageVisible = ref(false)
+  const answerAnalyVisible = ref(false)
   const listIndex = ref(0)
   const listPageNum = ref('1')
   const countDown = ref('00:45:00')
@@ -932,16 +934,16 @@ export const useDriverExam = (requestFn: Promise<openApi.selectFreeQuestionInfoR
         list.value[oldVal].questionType !== 1 &&
         list.value[oldVal].isComplete
       ) {
-
-        alert(
-          "正确答案：" + switchAnswerBySelect(list.value[oldVal].answer.split('-'), oldVal)
-        );
+		
+        // alert(
+        //   "正确答案：" + switchAnswerBySelect(list.value[oldVal].answer.split('-'), oldVal)
+        // );
       } else if (
         list.value[oldVal].isError &&
         list.value[oldVal].questionType === 1 &&
         list.value[oldVal].isComplete
       ) {
-        alert("正确答案：" + list.value[oldVal].answer);
+       // alert("正确答案：" + list.value[oldVal].answer);
       }
 
     }
@@ -1025,7 +1027,9 @@ export const useDriverExam = (requestFn: Promise<openApi.selectFreeQuestionInfoR
     setPageToListIndex,
 	playSkillAudio,
 	playExplainAudio,
-	issueRed
+	issueRed,
+	previewImageVisible,
+	answerAnalyVisible,
 
   }
 

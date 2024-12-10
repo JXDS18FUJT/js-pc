@@ -1,5 +1,6 @@
 <template>
 	<view class="w-full block">
+		<answerAnalyMask v-if="answerAnalyVisible" :zIndex="100" :listItem="list[listIndex]"></answerAnalyMask>
 		<view class="w-full h-456 flex pt-20 pl-20 flex-col items-start content-start flex-wrap justify-start">
 			<view class="flex flex-col relative w-162 h-39 border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
@@ -34,6 +35,9 @@
 				</view>
 				<view class="pt-19 pl-30 flex w-full h-30">
 					<view
+						@click="()=>{
+							
+						}"
 						class="border-1px cursor-pointer border-solid border-[#D6D9DDFF] w-68 h-30 items-center flex justify-center rd-5px">
 						<img class="w-16 h-16" src="@/assets/img/exercise/收藏灰@2x.png" />
 						<text class="text-15 pl-4">收藏</text>
@@ -58,11 +62,12 @@
 					</view>
 				</view>
 				<view class="pl-30 h-40 lh-40 w-full flex justify-between items-center content-center text-left">
-					<view>您选择的答案：<text>√</text></view>
+					<view>您选择的答案：<text>{{switchAnswerBySelect(list[listIndex].userAnswer,listIndex)}}</text></view>
 					<view class="w-435 lh-40 flex">
 						请选择答案：
 						<view @click="list[listIndex].isComplete ? '': setUserAnswer(item)" :class="{
-							'bg-[#EEF1F5FF]':list[listIndex].userAnswer==item
+							'bg-[#EEF1F5FF]':list[listIndex].questionType<3&&list[listIndex].userAnswer==item||list[listIndex].questionType==3&&list[listIndex].userAnswer.includes(item),
+							
 						}" v-for="(item,index) in list[listIndex].optsArr"
 							class="h-40 hover:bg-[#EEF1F5FF] cursor-pointer text-center mr-12 text-20 lh-40 w-40 border-1px border-solid border-[#959799FF] rd-5px">
 							<view v-if="list[listIndex].questionType==1">{{switchIndexByJudge(index)}}</view>
@@ -76,7 +81,7 @@
 				</view>
 
 				<view class="pl-30 mt-23 h-40 lh-40 w-full flex justify-between items-center content-center text-left">
-					<view>正确答案：<text>√</text></view>
+					<view class="text-white">正确答案：<text>√</text></view>
 					<view class="w-435 lh-40 flex">
 
 						<view @click="preProblem()"
@@ -133,7 +138,7 @@
 					<view v-for="(item,index) in list.length" @click="()=>{
 						listIndex = index
 					}" :key="item" class="w-40 h-40 text-center text-[#0A1A33FF] text-14 hover:bg-[#EEF1F5FF] cursor-pointer">
-						<view class="block w-full">{{item}}</view>
+						<view class="block w-full">{{item}}-({{list[index].questionType}})</view>
 						<view v-if="list[index].isComplete&&list[index].questionType==1" class="block w-full">
 							{{list[index].userAnswer}}
 						</view>
@@ -149,9 +154,17 @@
 			<view
 				class="flex-0 w-1045 text-center block h-442 pt-20 relative ml-20 border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">图片信息</view>
-				<img class="h-402" :src="list[listIndex].image" v-if="list[listIndex].image" />
+				<img @click="()=>{
+					previewImageVisible = true
+				}" class="h-402 cursor-pointer" :src="list[listIndex].image" v-if="list[listIndex].image" />
+				
 			</view>
-
+			<view @click="()=>{
+				previewImageVisible =false
+			}" v-if="previewImageVisible" class="fixed  flex justify-center items-center top-0 left-0 w-100vw h-100vh bg-[rgba(0,0,0,0.3)]">
+				<img class="min-h-60vh bg-[rgba(0,0,0,0)]" :src="list[listIndex].image" />
+			</view>
+			
 
 		</view>
 
@@ -163,6 +176,7 @@
 	import { useDriverExam } from "@/hooks/exam/driverExam";
 	import api from "@/api";
 	import { Image } from 'ant-design-vue';
+	import answerAnalyMask from '../../components/answerAnalyMask/answerAnalyMask.vue'
 	export default {
 		name: 'exercise',
 		setup() {
@@ -207,14 +221,20 @@
 			})
 			return {
 				...useDriverExam(api.open.question2InfoList({
-					model: 'cart',
-					subject: '1',
-					columnAll: '87'
+					model: 'bus',
+					subject: '4',
+					columnAll: '274'
 				}))
 			}
 		},
+		methods: {
+			collectItem() {
+				
+			}
+		},
 		components: {
-			aImage: Image
+			aImage: Image,
+			answerAnalyMask
 		}
 
 	}
