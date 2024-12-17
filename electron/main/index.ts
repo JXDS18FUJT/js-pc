@@ -137,6 +137,13 @@ const applicationMenu : Electron.MenuItem = [{
 
 	},
 	{
+		label: '回到首页',
+		click() {
+			 win.webContents.loadURL(process.env.VITE_DEV_SERVER_URL)
+		}
+	
+	},
+	{
 		label: '打开官网',
 		click() {
 			shell.openExternal('https://www.baidu.com/');

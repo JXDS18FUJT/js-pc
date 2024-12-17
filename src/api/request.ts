@@ -2,7 +2,7 @@ import axios from 'axios'
 import { message, Modal } from 'ant-design-vue';
 import router from '@/router';
 const request = axios.create({
-	baseURL: process.env.NODE_ENV === "development" ? "https://jpcj1.zzxcx.net/stage-api/" : "https://jpcj.zzxcx.net/prod-api/",
+	baseURL: process.env.NODE_ENV === "development" ? "https://nbjk1.zzxcx.net/nbjk-admin/" : "https://nbjk.zzxcx.net/nbjk-admin/",
 });
 // "https://jpcj.zzxcx.net/prod-api/"
 request.interceptors.request.use((config) => {

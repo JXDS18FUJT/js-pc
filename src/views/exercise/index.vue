@@ -1,6 +1,14 @@
 <template>
 	<view class="w-full block">
-		<answerAnalyMask v-if="answerAnalyVisible" :zIndex="100" :listItem="list[listIndex]"></answerAnalyMask>
+		<answerAnalyMask @close="()=>{
+			answerAnalyVisible = false
+		}" v-if="answerAnalyVisible" :zIndex="100" :listItem="wrongListItem"></answerAnalyMask>
+		<answerAnalyMask @close="()=>{
+			officialExplainVisible = false
+		}" v-if="officialExplainVisible" :zIndex="100" :listItem="list[listIndex]"></answerAnalyMask>
+		<skillExplainMask @close="()=>{
+			skillExplainVisible =false
+		}" :zIndex="100" v-if="skillExplainVisible" :listItem="list[listIndex]"></skillExplainMask>
 		<view class="w-full h-456 flex pt-20 pl-20 flex-col items-start content-start flex-wrap justify-start">
 			<view class="flex flex-col relative w-162 h-39 border-1px border-solid border-[#D6D9DDFF]">
 				<view class="text-[#FE3B2BFF] text-16 absolute top-0 left-13 translate-[0%,-50%]">理论考试</view>
@@ -34,11 +42,9 @@
 					<text v-if="list[listIndex].isRedIssue" v-html="issueRed()" class="text-18 ml-16"></text>
 				</view>
 				<view class="pt-19 pl-30 flex w-full h-30">
-					<view
-						@click="()=>{
+					<view @click="()=>{
 							
-						}"
-						class="border-1px cursor-pointer border-solid border-[#D6D9DDFF] w-68 h-30 items-center flex justify-center rd-5px">
+						}" class="border-1px cursor-pointer border-solid border-[#D6D9DDFF] w-68 h-30 items-center flex justify-center rd-5px">
 						<img class="w-16 h-16" src="@/assets/img/exercise/收藏灰@2x.png" />
 						<text class="text-15 pl-4">收藏</text>
 					</view>
@@ -93,6 +99,7 @@
 							下一题
 						</view>
 						<view
+							@click="submitDriveExam()"
 							class="hover:bg-[#EEF1F5FF] cursor-pointer h-40 text-center mr-15 text-20 lh-40 w-124 border-1px border-solid border-[#959799FF] rd-5px">
 							交卷
 						</view>
@@ -114,14 +121,18 @@
 			</view>
 			<view class="w-540 h-40 flex ml-20 justify-between">
 				<view
+				    @click="backHomePage()"
 					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					返回首页
 				</view>
-				<view @click="playSkillAudio()"
-					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
+				<view @click="()=>{
+					skillExplainVisible = true
+				}" class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					语音技巧
 				</view>
-				<view @click="playExplainAudio()"
+				<view @click="()=>{
+					officialExplainVisible=true
+				}"
 					class="text-20 lh-40 text-[#0A1A33FF] border-1px border-solid border-[#959799FF] block w-124 h-full rd-5px cursor-pointer">
 					官方解读
 				</view>
@@ -139,16 +150,22 @@
 						listIndex = index
 					}" :key="item" class="w-40 h-40 text-center text-[#0A1A33FF] text-14 hover:bg-[#EEF1F5FF] cursor-pointer">
 						<view class="block w-full">{{item}}-({{list[index].questionType}})</view>
-						<view v-if="list[index].isComplete&&list[index].questionType==1" class="block w-full">
+						<view :class="{
+							'text-green':list[index].isComplete&&!list[index].isError,
+							'text-red':list[index].isComplete&&list[index].isError
+						}" v-if="list[index].isComplete&&list[index].questionType==1" class="block w-full">
 							{{list[index].userAnswer}}
 						</view>
-						<view v-if="list[index].isComplete&&list[index].questionType>1" class="block w-full">
+						<view :class="{
+							'text-green':list[index].isComplete&&!list[index].isError,
+							'text-red':list[index].isComplete&&list[index].isError
+						}" v-if="list[index].isComplete&&list[index].questionType>1" class="block w-full">
 							{{switchAnswerBySelect(list[index].userAnswer,index)}}
 						</view>
 					</view>
 				</view>
 
-				<canvas class="w-400 h-400 absolute z-99 top-20" style="pointer-events: none;" width="400" height="400"
+				<canvas class="w-400 h-400 absolute z-5 top-20" style="pointer-events: none;" width="400" height="400"
 					id="grid"></canvas>
 			</view>
 			<view
@@ -157,14 +174,15 @@
 				<img @click="()=>{
 					previewImageVisible = true
 				}" class="h-402 cursor-pointer" :src="list[listIndex].image" v-if="list[listIndex].image" />
-				
+
 			</view>
 			<view @click="()=>{
 				previewImageVisible =false
-			}" v-if="previewImageVisible" class="fixed  flex justify-center items-center top-0 left-0 w-100vw h-100vh bg-[rgba(0,0,0,0.3)]">
+			}" v-if="previewImageVisible"
+				class="fixed z-11 flex justify-center items-center top-0 left-0 w-100vw h-100vh bg-[rgba(0,0,0,0.3)]">
 				<img class="min-h-60vh bg-[rgba(0,0,0,0)]" :src="list[listIndex].image" />
 			</view>
-			
+
 
 		</view>
 
@@ -172,23 +190,25 @@
 </template>
 
 <script lang="ts">
-	import { onMounted, ref } from "vue"
+	import { onMounted, ref } from "vue";
 	import { useDriverExam } from "@/hooks/exam/driverExam";
 	import api from "@/api";
-	import { Image } from 'ant-design-vue';
-	import answerAnalyMask from '../../components/answerAnalyMask/answerAnalyMask.vue'
+	import answerAnalyMask from '../../components/answerAnalyMask/answerAnalyMask.vue';
+	import skillExplainMask from '../../components/skillExplainMask/skillExplainMask.vue';
 	export default {
 		name: 'exercise',
 		setup() {
-
+			const skillExplainVisible = ref(false)
+			const officialExplainVisible = ref(false)
+			const backHomePage =()=>{
+				window.location.href='./'
+				
+			}
 			onMounted(() => {
 				let gridDom = document.getElementById("grid") as HTMLCanvasElement
-				let ctx = gridDom.getContext('2d')
+				let ctx = gridDom.getContext('2d') as CanvasRenderingContext2D
 				const gridDomWidth = 400
 				const gridDomHeight = 400
-
-
-
 
 				for (let i = 0; i < 10; i++) {
 					//上方边框
@@ -220,6 +240,9 @@
 
 			})
 			return {
+				skillExplainVisible,
+				officialExplainVisible,
+				backHomePage,
 				...useDriverExam(api.open.question2InfoList({
 					model: 'bus',
 					subject: '4',
@@ -229,12 +252,18 @@
 		},
 		methods: {
 			collectItem() {
-				
+
+			}
+		},
+		data() {
+			return {
+
 			}
 		},
 		components: {
-			aImage: Image,
-			answerAnalyMask
+			answerAnalyMask,
+			skillExplainMask,
+			
 		}
 
 	}

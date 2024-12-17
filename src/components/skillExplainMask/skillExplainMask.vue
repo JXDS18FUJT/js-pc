@@ -3,21 +3,13 @@
 		zIndex:zIndex
 	}" class="w-100vw h-100vh fixed top-0 left-0 bg-[rgba(0,0,0,0.3)] flex flex-wrap justify-center items-center">
 		<view class="bg-[#4688EBFF] pb-20 w-1000 h-auto flex flex-wrap justify-center content-start">
-			<view class="w-full h-50 lh-50  text-24 text-white">答案解析</view>
+			<view class="w-full h-50 lh-50  text-24 text-white">语音技巧</view>
 			<view class="w-9/10 pt-20 text-left pb-20 pl-20 pr-20 bg-white">
-				{{listItem.explainJs}}
+				{{listItem.explainJq}}
 			</view>
-			<view v-if="listItem.questionType==1" class="w-9/10 text-left text-[#d8d8d8] pt-16">
-				正确答案：<text>{{listItem.answer}}&nbsp;&nbsp;&nbsp;</text>你的答案：<text>{{listItem.userAnswer }}</text></view>
 			
-			<view v-if="listItem.questionType==2" class="w-9/10 text-left text-[#d8d8d8] pt-16">
-				正确答案：<text>{{switchAnswerToLetter(listItem.optsArr,listItem.answer)}}&nbsp;&nbsp;&nbsp;</text>你的答案：<text>{{switchAnswerToLetter(listItem.optsArr,listItem.userAnswer)}}</text>
-			</view>
-			<view v-if="listItem.questionType==3" class="w-9/10 text-left text-[#d8d8d8] pt-16">
-				正确答案：<text>{{switchAnswerToLetter(listItem.optsArr,listItem.answer.split('-'))}}&nbsp;&nbsp;&nbsp;</text>你的答案：<text>{{switchAnswerToLetter(listItem.optsArr,listItem.userAnswer)}}</text>
-			</view>
 			<view class="w-9/10 flex justify-between mt-20">
-				<view @click="playAudioExplainjs()" class="w-150 lh-40 bg-[#f9f9f9] cursor-pointer">语音播放</view>
+				<view @click="playAudioExplainjq()" class="w-150 lh-40 bg-[#f9f9f9] cursor-pointer">语音播放</view>
 				<view @click="closeMask()" class="w-150 lh-40 bg-[#f9f9f9] cursor-pointer">关闭</view>
 			</view>
 			
@@ -28,7 +20,6 @@
 <script setup lang="ts">
 	import { ref } from 'vue';
 	import audio from "@/utils/audio";
-import { ListItem } from 'ant-design-vue';
 	const emit = defineEmits(['close'])
 	const props = defineProps({
 		zIndex: {
@@ -94,9 +85,10 @@ import { ListItem } from 'ant-design-vue';
 		emit('close')
 		audio.stopAudio()
 	}
-	const playAudioExplainjs = ()=>{
+	const playAudioExplainjq = ()=>{
 		audio.stopAudio()
-		audio.playAudio(props.listItem.explainjsmp3)
+		//字段就是这个
+		audio.playAudio(props.listItem.explainMp3)
 	}
 	const switchAnswerToLetter = (opts : string[], answer : string[] | string) => {
 		let letters = ['A', 'B', 'C', 'D', 'E', 'F']

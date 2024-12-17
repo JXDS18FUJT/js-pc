@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+//@ts-ignore
 import { routes, handleHotUpdate } from 'vue-router/auto-routes'
 import type { RouteRecordInfo, ParamValue } from 'vue-router'
 
