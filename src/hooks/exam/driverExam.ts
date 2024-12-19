@@ -3,7 +3,7 @@ import { openApi } from "@/api/open/type";
 import moment from 'moment';
 import audio from "@/utils/audio";
 import { useStore } from "vuex";
-import { message } from "ant-design-vue";
+import { message, Modal } from "ant-design-vue";
 import api from "@/api";
 import { useRoute } from "vue-router";
 export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfoRes>, config = {
@@ -534,7 +534,7 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 	const previewImageVisible = ref(false)
 	const answerAnalyVisible = ref(false)
 	const listIndex = ref(0)
-
+	const listRows = ref(0)
 	const listPageNum = ref('1')
 	const wrongListItem = ref({})
 	const countDown = ref('00:45:00')
@@ -808,29 +808,38 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 		//保存临时错题
 		window.sessionStorage.setItem('driverExam_temp_wrong_list', JSON.stringify(wrongTempList || '[]'))
 		//同步全部的错题
-		api.question.questionWrongWrongs({
-			km: Number(route.query.subject),
-			wrongs: wrongList.map(item => {
-				return {
-					id: item.id,
-					timestamp: + new Date()
-				}
-			})
+		Modal.confirm({
+			title: '是否交卷',
+			content: '交卷结束就离开了',
+			okText: '确认',
+			cancelText: '取消',
+			onOk(){
+				
+			}
+		})
+		//api.question.questionWrongWrongs({
+			//km: Number(route.query.subject),
+			//wrongs: wrongList.map(item => {
+			//	return {
+			//		id: item.id,
+				//	timestamp: + new Date()
+			//	}
+			//})
 
-		}).then(res => {
-			console.log(route)
-			if (Number(route.query.subject) == 1) {
-				console.log(route.query.subject)
-				store.dispatch('AsyncDriver1WrongList')
-			}
-			if (Number(route.query.subject) == 4) {
-				console.log(route.query.subject)
-				store.dispatch('AsyncDriver4WrongList')
-			}
+		//}).then(res => {
+			//console.log(route)
+			//if (Number(route.query.subject) == 1) {
+			//	console.log(route.query.subject)
+			//	store.dispatch('AsyncDriver1WrongList')
+			//}
+			//if (Number(route.query.subject) == 4) {
+			//	console.log(route.query.subject)
+			//	store.dispatch('AsyncDriver4WrongList')
+			//}
 			//科目四每题是2分
-			if (Number(route.query.subject) == 4) {
-				score = score * 2
-			}
+			//if (Number(route.query.subject) == 4) {
+			//	score = score * 2
+			//}
 			// router.push({
 			// 	path: '/driverExamAnaly',
 			// 	query: {
@@ -840,7 +849,7 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 			// 	}
 			// })
 
-		})
+		//})
 		// .catch(err => {
 		// 	router.push({
 		// 		path: '/driverExamAnaly',
@@ -965,6 +974,7 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 			});
 			window.sessionStorage.setItem('driverExam_current_list', JSON.stringify(res.rows))
 			list.value = res.rows;
+			listRows.value = Math.ceil((list.value.length/10))
 			message.destroy()
 		}).catch(err => {
 			message.destroy()
@@ -977,7 +987,6 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 			}
 			examTimeMillSeconds = examTimeMillSeconds - 1000
 			countDown.value = moment(examTimeMillSeconds).format('00:mm:ss')
-
 		}, 1000)
 
 
@@ -993,6 +1002,7 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 		trueNum,
 		list,
 		listIndex,
+		listRows,
 		wrongListItem,
 		countDown,
 		listPageNum,

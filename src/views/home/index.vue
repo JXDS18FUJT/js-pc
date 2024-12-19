@@ -63,10 +63,10 @@
 					<img class="w-80 h-80" src="@/assets/img/home/用户管理@2x.png" />
 					<text class="text-30 lh-80">用户管理</text>
 				</view>
-				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+				<router-link :to="'./classifyKind'" class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
 					<img class="w-80 h-80" src="@/assets/img/home/分类练习@2x.png" />
 					<text class="text-30 lh-80">分类练习</text>
-				</view>
+				</router-link>
 			</view>
 			
 		</view>
@@ -82,6 +82,9 @@
 	
 	defineOptions({
 		name:'home'
+	})
+	const query = ref({
+		
 	})
 	const carTypesIndex = ref(0)
 	const carTypes = ref([{

@@ -20,7 +20,7 @@
 			]
 		}
 	},
-	"include": ["src", "./typed-router.d.ts"],
+	"include": ["src", "./typed-router.d.ts","./components.d.ts"],
 	"references": [{
 		"path": "./tsconfig.node.json"
 	}]

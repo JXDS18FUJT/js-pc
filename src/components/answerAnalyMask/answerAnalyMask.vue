@@ -26,9 +26,8 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import audio from "@/utils/audio";
-import { ListItem } from 'ant-design-vue';
 	const emit = defineEmits(['close'])
 	const props = defineProps({
 		zIndex: {
@@ -90,6 +89,9 @@ import { ListItem } from 'ant-design-vue';
 			}
 		}
 	});
+	onMounted(()=>{
+		playAudioExplainjs()
+	})
 	const closeMask = ()=>{
 		emit('close')
 		audio.stopAudio()

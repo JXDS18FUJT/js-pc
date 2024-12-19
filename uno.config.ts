@@ -14,8 +14,12 @@ export default defineConfig({
 		{ logo: 'i-logos-vue w-6em h-6em transform transition-800' },
 	],
 	rules:[
+		
 		[/^w-(\d+)$/, ([, d]) => ({
 			width: `${d}rem`
+		})],
+		[/^min-w-(\d+)$/, ([, d]) => ({
+			'min-width': `${d}rem`
 		})],
 		[/^h-(\d+)$/, ([, d]) => ({
 			height: `${d}rem`

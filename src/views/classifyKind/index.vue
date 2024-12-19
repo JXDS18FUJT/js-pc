@@ -37,7 +37,7 @@
 				<view   class="flex w-full flex-wrap justify-between">
 					<router-link v-for="(item,index) in list" :key="index" :to="'./exercise?subject=1&model=cart&columnAll='+item.columnId" :style="{
 						backgroundImage:'url('+empty+')',
-					}" class="relative min-w-270 pr-16 h-80 lh-80 text-30 text-left bg-no-repeat bg-[length:100%] pl-106 mb-60">
+					}" class="relative pr-16 min-w-270 h-80 lh-80 text-30 text-left bg-no-repeat bg-[length:100%100%] pl-106 mb-60">
 						<view class="absolute h-80 lh-80 w-80 left-0 top-0 text-center text-white text-40 font-bold">{{index+1}}</view>
 						<text>{{item.title}}</text>
 					</router-link>
@@ -87,14 +87,14 @@
 	import { openApi } from '@/api/open/type'
 	const list = ref<openApi.question2InfoGetQuestionColumn['data']>([])
 	api.open.question2InfoGetQuestionColumn({
-		subject: 'k1_2',
+		subject: 'k1_3',
 		model: 'cart'
 	}).then(res => {
 		list.value = res.data
 
 	})
 	defineOptions({
-		name: 'classifyNecessary'
+		name: 'classifyKind'
 	})
 </script>
 

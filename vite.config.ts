@@ -27,12 +27,12 @@ export default defineConfig(async ({ command }) => {
 			VueRouter({
 				routesFolder: 'src/views',
 				exclude: ['**/components/*.vue'],
-				 extensions: ['.vue'],
+				extensions: ['.vue'],
 			}),
 			vue(),
 			Components({
 				dts: true,
-				 globs: ['src/components/*.{vue}'],
+				dirs: ['src/components'],
 			}),
 			UnoCSS(),
 			electron([
