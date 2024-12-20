@@ -2,7 +2,7 @@
 	<view class="w-1920">
 		<view class="w-full h-80 bg-[#4688EBFF] block">
 			<view class="w-full h-full flex items-center pr-340 pl-340">
-				<view class="block text-0">
+				<view @click="backPage()" class="block text-0">
 					<img class="w-8" src="@/assets/img/classifyNecessary/返回@2x.png" />
 					<view class="text-20 text-white ml-5">
 						返回
@@ -34,11 +34,13 @@
 
 		<view class="flex justify-center">
 			<view class="flex justify-between w-710">
-				<view   class="flex w-full flex-wrap justify-between">
-					<router-link v-for="(item,index) in list" :key="index" :to="'./exercise?subject=1&model=cart&columnAll='+item.columnId" :style="{
+				<view class="flex w-full flex-wrap justify-between">
+					<router-link v-for="(item,index) in list" :key="index"
+						:to="'./exerciseNecessary?subject=1&model=cart&columnAll='+item.columnId" :style="{
 						backgroundImage:'url('+empty+')',
 					}" class="relative min-w-270 pr-16 h-80 lh-80 text-30 text-left bg-no-repeat bg-[length:100%] pl-106 mb-60">
-						<view class="absolute h-80 lh-80 w-80 left-0 top-0 text-center text-white text-40 font-bold">{{index+1}}</view>
+						<view class="absolute h-80 lh-80 w-80 left-0 top-0 text-center text-white text-40 font-bold">
+							{{index+1}}</view>
 						<text>{{item.title}}</text>
 					</router-link>
 
@@ -85,9 +87,18 @@
 	import api from '@/api/index'
 	import { ref } from 'vue'
 	import { openApi } from '@/api/open/type'
+	import { useRoute } from 'vue-router'
 	const list = ref<openApi.question2InfoGetQuestionColumn['data']>([])
+	const route = useRoute()
+	const query = ref(route.query as {
+		subject:string,
+		model:string
+	})
+	const backPage = ()=>{
+		window.history.back()
+	}
 	api.open.question2InfoGetQuestionColumn({
-		subject: 'k1_2',
+		subject: 'k'+query.value.subject+'_2',
 		model: 'cart'
 	}).then(res => {
 		list.value = res.data

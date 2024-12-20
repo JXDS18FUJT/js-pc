@@ -49,7 +49,7 @@ export default {
     question2InfoSelectTestK14QuestionInfoList(params:{
         subject: number,
         model: string
-    }): Promise<openApi.selectFreeQuestionInfoRes> {
+    }): Promise<openApi.selectTestK14QuestionInfoList> {
         return request({
             params,
             url: "/open-api/question2/info/selectTestK14QuestionInfoList",

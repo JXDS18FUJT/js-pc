@@ -6,7 +6,7 @@ import { useStore } from "vuex";
 import { message, Modal } from "ant-design-vue";
 import api from "@/api";
 import { useRoute } from "vue-router";
-export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfoRes>, config = {
+export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfoRes|openApi.selectTestK14QuestionInfoList>, config = {
 	countDown: true,
 	autoAnswer: true,
 	recordUncomplete: true
@@ -17,7 +17,7 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 	let examTimeMillSeconds = config.countDown ? 45 * 60 * 1000 : 0
 	const falseNum = ref(0)
 	const trueNum = ref(0)
-	const list = ref<openApi.selectFreeQuestionInfoRes["rows"]>([{
+	const list = ref<openApi.question[]>([{
 		createTime: "2022-10-09 15:05:43",
 		updateTime: "2022-10-10 10:19:19",
 		id: 821,
@@ -964,7 +964,10 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 	onMounted(() => {
 		message.loading('题目加载中', 0)
 		requestFn.then(res => {
-			res.rows.forEach((element) => {
+			//@ts-ignore
+			const data = res.rows||res.data
+			//@ts-ignore
+			data.forEach((element) => {
 				element.optsArr = element.opts.split("-");
 				if (element.questionType !== 3) {
 					element.userAnswer = "";
@@ -972,8 +975,8 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 					element.userAnswer = [];
 				}
 			});
-			window.sessionStorage.setItem('driverExam_current_list', JSON.stringify(res.rows))
-			list.value = res.rows;
+			window.sessionStorage.setItem('driverExam_current_list', JSON.stringify(data))
+			list.value = data;
 			listRows.value = Math.ceil((list.value.length/10))
 			message.destroy()
 		}).catch(err => {

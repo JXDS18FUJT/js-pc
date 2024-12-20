@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<do-topics></do-topics>
+		<do-topics type="mock"></do-topics>
 	</view>
 	
 </template>
 
 <script lang="ts" setup>
 	defineOptions({
-		name: 'exercise'
+		name: 'exerciseMock'
 	})
 </script>
 

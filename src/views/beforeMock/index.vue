@@ -2,9 +2,9 @@
 	<view class="w-1920">
 		<view class="w-full h-80 bg-[#4688EBFF] block">
 			<view class="w-full h-full flex items-center pr-340 pl-340">
-				<view @click="backPage()" class="block text-0">
+				<view class="block text-0">
 					<img class="w-8" src="@/assets/img/classifyNecessary/返回@2x.png" />
-					<view  class="text-20 text-white ml-5">
+					<view class="text-20 text-white ml-5">
 						返回
 					</view>
 				</view>
@@ -18,8 +18,20 @@
 
 
 		</view>
+		<view class="block pt-16 pb-16">
+			<view class="">
+				<view class="block">车型：{{modelMap[query.model]}}</view>
+				<view class="block">科目：{{ subjectMap[query.subject] }}</view>
+			</view>
+			<router-link :to="{
+				path:'./exerciseMock',
+				query:query
+			}" class="m-auto flex justify-center cursor-pointer rd-20px">
+				<view class="w-100 h-35 lh-35 text-white bg-[#4688EBFF] block">进入考试</view>
+			</router-link>
+		</view>
 
-		<view class="m-auto flex justify-center pt-60 pb-50">
+		<!-- 	<view class="m-auto flex justify-center pt-60 pb-50">
 			<view class="w-366 h-50 lh-50 mr-50 bg-[#E3EDFCFF] text-20 rd-32px">
 				<text>258道速通考题<text class="text-red">（加速通关）</text></text>
 			</view>
@@ -30,38 +42,9 @@
 				<text>258道速通考题<text class="text-red">（加速通关）</text></text>
 			</view>
 
-		</view>
-
-		<view class="flex justify-center">
-			<view class="flex justify-between w-710">
-				<view   class="flex w-full flex-wrap justify-between">
-					<router-link v-for="(item,index) in list" :key="index" :to="{
-						path:'./exerciseKind',
-						query:{...query,columnId:item.columnId}
-					}" :style="{
-						backgroundImage:'url('+empty+')',
-					}" class="relative pr-16 min-w-270 h-80 lh-80 text-30 text-left bg-no-repeat bg-[length:100%100%] pl-106 mb-60">
-						<view class="absolute h-80 lh-80 w-80 left-0 top-0 text-center text-white text-40 font-bold">{{index+1}}</view>
-						<text>{{item.title}}</text>
-					</router-link>
+		</view> -->
 
 
-				</view>
-				<!-- <view class="flex flex-col">
-					<view :style="{
-						backgroundImage:'url('+classifyNecessary2+')',
-					}" class="relative w-270 h-80 lh-80 text-30 text-left bg-no-repeat bg-[length:100%] pl-106 mb-60">
-						<text>精选必学2</text>
-					</view>
-					<view :style="{
-						backgroundImage:'url('+classifyNecessary4+')',
-					}" class="relative w-270 h-80 lh-80 text-30 text-left bg-no-repeat bg-[length:100%] pl-106 mb-60">
-						<text>精选必学4</text>
-					</view>
-					
-				</view> -->
-			</view>
-		</view>
 		<view class="w-1200 block  pt-24 pl-20 pb-20 m-auto border-tip">
 			<view class="w-1160 block bg-white rd-20px">
 				<view class="block text-center text-30 pt-26">老题分析与学习要求</view>
@@ -89,25 +72,21 @@
 	import { ref } from 'vue'
 	import { openApi } from '@/api/open/type'
 	import { useRoute } from 'vue-router'
-	const list = ref<openApi.question2InfoGetQuestionColumn['data']>([])
-	
+
 	const route = useRoute()
 	const query = ref(route.query as {
-		subject:string,
-		model:string
+		subject : string,
+		model : string
 	})
-	const backPage = ()=>{
-		window.history.back()
+	const modelMap = {
+		cart: "轿车",
+		mtc: "摩托车",
+		bus: "客车",
+		truck: "货车"
 	}
-	api.open.question2InfoGetQuestionColumn({
-		subject: 'k'+query.value.subject+'_3',
-		model: 'cart'
-	}).then(res => {
-		list.value = res.data
-
-	})
+	const subjectMap = ['科目零', '科目一', '科目二', '科目三', '科目四']
 	defineOptions({
-		name: 'classifyKind'
+		name: 'beforeMock'
 	})
 </script>
 

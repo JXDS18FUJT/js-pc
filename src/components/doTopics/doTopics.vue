@@ -162,7 +162,7 @@
 						</view>
 					</view>
 				</view>
-				<grid-border  :height="listRows*40"></grid-border>
+				<grid-border :height="listRows*40"></grid-border>
 				<!-- <canvas class="w-400 h-440 absolute z-5 top-20" style="pointer-events: none;" width="400" height="440"
 					id="grid"></canvas> -->
 
@@ -198,7 +198,7 @@
 	// import skillExplainMask from '@/components/skillExplainMask/skillExplainMask.vue';
 	export default {
 		name: 'doTopics',
-		setup() {
+		setup(props) {
 			const route = useRoute()
 
 			const query = route.query
@@ -208,21 +208,35 @@
 				window.location.href = './'
 
 			}
+			let requestFn
 
-		
+			switch (props.type) {
+				case 'mock':
+					requestFn = api.open.question2InfoSelectTestK14QuestionInfoList({
+						model: query.model as string,
+						subject: Number(query.subject),
+					})
+					break;
+				default:
+					requestFn = api.open.question2InfoList({
+						model: query.model as string,
+						subject: query.subject as string,
+						columnAll: query.columnAll as string
+					})
+					break;
+
+			}
+
+
 			onMounted(() => {
 
-				
+
 			})
 			return {
 				skillExplainVisible,
 				officialExplainVisible,
 				backHomePage,
-				...useDriverExam(api.open.question2InfoList({
-					model: query.model as string,
-					subject: query.subject as string,
-					columnAll: query.columnAll as string
-				}))
+				...useDriverExam(requestFn)
 			}
 		},
 		data() {
@@ -231,10 +245,10 @@
 			}
 		},
 		methods: {
-			resizeCanvas(){
+			resizeCanvas() {
 				let gridDom = document.getElementById("grid") as HTMLCanvasElement
 				//let ctx = gridDom.getContext('2d') as CanvasRenderingContext2D
-				gridDom.height = Math.ceil(this.list.length/10)*40 
+				gridDom.height = Math.ceil(this.list.length / 10) * 40
 			},
 			initCanvas() {
 				let gridDom = document.getElementById("grid") as HTMLCanvasElement
@@ -279,6 +293,10 @@
 				type: String,
 				default: '理论考试'
 			},
+			type: {
+				type: String,
+				default: ''
+			}
 
 		},
 		components: {

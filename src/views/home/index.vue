@@ -10,15 +10,17 @@
 		</view>
 		<view>
 			<view class="w-1200 m-auto h-114 block">
-				<view class="w-full flex w-1200 h-64 pt-50 justify-between text-white">
+				<view class="w-full flex w-1200 h-64 pt-50 text-white">
 					<view @click="()=>{
 						subjectIndex=index
+						query.subject = item.subject
+						
 					}" v-for="(item,index) in subjects" :class="{
 							'bg-[#E3EDFCFF]':subjectIndex!=index,
 							'text-[#4688EBFF]':subjectIndex!=index,
 							'bg-gradient-1':subjectIndex==index,
 							'text-white':subjectIndex==index
-						}" class="rd-32px w-200 lh-64 h-64 text-30 cursor-pointer subject box-border">{{item}}
+						}" class="rd-32px mr-16 w-200 lh-64 h-64 text-30 cursor-pointer subject box-border">{{item.title}}
 					</view>
 				</view>
 
@@ -47,14 +49,14 @@
 		
 		<view class="flex mt-35">
 			<view class="w-1240 m-auto inline-flex flex-wrap overflow-hidden">
-				<router-link :to="'./classifyNecessary'" class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+				<router-link :to="{path:'./classifyNecessary',query:query}" class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
 					<img class="w-80 h-80" src="@/assets/img/home/必学考题@2x.png" />
 					<text class="text-30 lh-80">必学考题</text>
 				</router-link>
-				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+				<router-link :to="{path:'./beforeMock',query:query}" class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
 					<img class="w-80 h-80" src="@/assets/img/home/模拟考试@2x.png" />
 					<text class="text-30 lh-80">模拟考试</text>
-				</view>
+				</router-link>
 				<view class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
 					<img class="w-80 h-80" src="@/assets/img/home/我的收藏@2x.png" />
 					<text class="text-30 lh-80">我的收藏</text>
@@ -63,7 +65,7 @@
 					<img class="w-80 h-80" src="@/assets/img/home/用户管理@2x.png" />
 					<text class="text-30 lh-80">用户管理</text>
 				</view>
-				<router-link :to="'./classifyKind'" class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
+				<router-link :to="{path:'./classifyKind',query:query}" class="flex w-270 h-80 bg-[#E0E3E6FF] rd-32 mr-40 mb-40">
 					<img class="w-80 h-80" src="@/assets/img/home/分类练习@2x.png" />
 					<text class="text-30 lh-80">分类练习</text>
 				</router-link>
@@ -84,6 +86,8 @@
 		name:'home'
 	})
 	const query = ref({
+		subject:'1',
+		model:'cart'
 		
 	})
 	const carTypesIndex = ref(0)
@@ -109,7 +113,7 @@
 
 	}])
 	const msg = ref('hello')
-	const subjects = ['科目一', '科目四', '满分学习', '注销恢复', '资格证']
+	const subjects = [{title:'科目一',subject:'1'}, {title:'科目四',subject:'4'}]
 	const subjectIndex = ref(0)
 </script>
 
