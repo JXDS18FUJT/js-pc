@@ -966,7 +966,7 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 		requestFn.then(res => {
 			//@ts-ignore
 			const data = res.rows||res.data
-			//@ts-ignore
+			//@ts-ignore 
 			data.forEach((element) => {
 				element.optsArr = element.opts.split("-");
 				if (element.questionType !== 3) {

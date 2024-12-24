@@ -20,8 +20,10 @@
 		</view>
 		<view class="block pt-16 pb-16">
 			<view class="">
-				<view class="block">车型：{{modelMap[query.model]}}</view>
-				<view class="block">科目：{{ subjectMap[query.subject] }}</view>
+				<!-- @ts-ignore -->
+				<view class="block">车型：{{modelMap[model]}}</view>
+				<!-- @ts-ignore -->
+				<view class="block">科目：{{ subjectMap[subject] }}</view>
 			</view>
 			<router-link :to="{
 				path:'./exerciseMock',
@@ -74,10 +76,9 @@
 	import { useRoute } from 'vue-router'
 
 	const route = useRoute()
-	const query = ref(route.query as {
-		subject : string,
-		model : string
-	})
+	const query = ref(route.query)
+	const subject = ref(Number(route.query.subject))
+	const model = ref(route.query.model)
 	const modelMap = {
 		cart: "轿车",
 		mtc: "摩托车",
