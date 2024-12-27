@@ -1,7 +1,7 @@
 <template>
 	<view class="w-1920">
 		<view class="w-full h-80 bg-[#4688EBFF] block">
-			<view class="w-full h-full flex items-center pr-340 pl-340">
+			<view @click="backPage()" class="w-full h-full flex items-center pr-340 pl-340">
 				<view class="block text-0">
 					<img class="w-8" src="@/assets/img/classifyNecessary/返回@2x.png" />
 					<view class="text-20 text-white ml-5">
@@ -21,9 +21,9 @@
 		<view class="block pt-16 pb-16">
 			<view class="">
 				<!-- @ts-ignore -->
-				<view class="block">车型：{{modelMap[model]}}</view>
+				<view class="block">车型：{{modelMap(model)}}</view>
 				<!-- @ts-ignore -->
-				<view class="block">科目：{{ subjectMap[subject] }}</view>
+				<view class="block">科目：{{ subjectMap(subject) }}</view>
 			</view>
 			<router-link :to="{
 				path:'./exerciseMock',
@@ -73,19 +73,58 @@
 	import api from '@/api/index'
 	import { ref } from 'vue'
 	import { openApi } from '@/api/open/type'
-	import { useRoute } from 'vue-router'
+	import { useRoute, useRouter } from 'vue-router'
 
 	const route = useRoute()
+	const router = useRouter()
 	const query = ref(route.query)
 	const subject = ref(Number(route.query.subject))
-	const model = ref(route.query.model)
-	const modelMap = {
-		cart: "轿车",
-		mtc: "摩托车",
-		bus: "客车",
-		truck: "货车"
+	const model = ref(route.query.model as string)
+	const modelMap = (model : string) => {
+		switch (model) {
+			case 'model':
+				return '轿车'
+			case 'bus':
+				return '客车'
+			case 'truck':
+				return '货车'
+			case 'mtc':
+				return '摩托车'
+			default:
+				return '无'
+		}
 	}
-	const subjectMap = ['科目零', '科目一', '科目二', '科目三', '科目四']
+
+	const backPage = () => {
+
+		router.back()
+	}
+	const subjectMap = (index : string | number) => {
+		switch (index) {
+			case 0:
+			case '0':
+				return '科目零'
+			case 1:
+			case '1':
+				return '科目一'
+			case 2:
+			case '2':
+				return '科目二'
+			case 3:
+			case '3':
+				return '科目三'
+			case 4:
+			case '4':
+				return '科目四'
+			default:
+				return '科目不明'
+
+
+		}
+
+
+
+	}
 	defineOptions({
 		name: 'beforeMock'
 	})

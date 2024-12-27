@@ -36,7 +36,7 @@
 			<view class="flex justify-between w-710">
 				<view class="flex w-full flex-wrap justify-between">
 					<router-link v-for="(item,index) in list" :key="index"
-						:to="'./exerciseNecessary?subject=1&model=cart&columnAll='+item.columnId" :style="{
+						:to="'./exerciseNecessary?subject=1&model=cart&columnId='+item.columnId" :style="{
 						backgroundImage:'url('+empty+')',
 					}" class="relative min-w-270 pr-16 h-80 lh-80 text-30 text-left bg-no-repeat bg-[length:100%] pl-106 mb-60">
 						<view class="absolute h-80 lh-80 w-80 left-0 top-0 text-center text-white text-40 font-bold">
@@ -87,15 +87,18 @@
 	import api from '@/api/index'
 	import { ref } from 'vue'
 	import { openApi } from '@/api/open/type'
-	import { useRoute } from 'vue-router'
+	import { useRoute, useRouter } from 'vue-router'
 	const list = ref<openApi.question2InfoGetQuestionColumn['data']>([])
 	const route = useRoute()
+	const router = useRouter()
 	const query = ref(route.query as {
 		subject:string,
 		model:string
 	})
 	const backPage = ()=>{
-		window.history.back()
+		
+		console.log(router)
+		router.back()
 	}
 	api.open.question2InfoGetQuestionColumn({
 		subject: 'k'+query.value.subject+'_2',

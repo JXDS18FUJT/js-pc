@@ -764,6 +764,9 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 	const submitDriveExam = (isUploadScore ?: boolean) => {
 		setUserAnswerAndRes(list.value[listIndex.value].userAnswer)
 		let score = 0
+		//重新计算
+		trueNum.value = 0
+		falseNum.value = 0
 		const wrongTempList : openApi.selectFreeQuestionInfoRes["rows"] = [] //临时错题
 		const wrongList : openApi.selectFreeQuestionInfoRes["rows"] = [] //永久错题
 		const wrongListRes : string[] = []
@@ -771,6 +774,7 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 			//题目正确加分
 			if (item.isComplete && !item.isError && list.value[index].userAnswer.length > 0) {
 				score = score + 1
+				trueNum.value = trueNum.value+1
 			}
 			else if (!item.isComplete && list.value[index].userAnswer.length == 0) {
 				//没做的题目
@@ -782,6 +786,7 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 			}
 			else {
 				let userAnswerIndex = '0'
+				falseNum.value = falseNum.value+1
 				//错误的题目
 				if (list.value[index].questionType == 3 && Array.isArray(list.value[index].userAnswer)) {
 					const userAnswer = list.value[index].userAnswer as string[]
@@ -805,18 +810,18 @@ export const useDriverExam = (requestFn : Promise<openApi.selectFreeQuestionInfo
 				}
 			}
 		})
+		//校正分数
+		if (Number(route.query.subject) == 4) {
+			score = score * 2
+		}
+		if (route.query.model == 'mtc') {
+			score = score * 2
+		}
+		
 		//保存临时错题
 		window.sessionStorage.setItem('driverExam_temp_wrong_list', JSON.stringify(wrongTempList || '[]'))
 		//同步全部的错题
-		Modal.confirm({
-			title: '是否交卷',
-			content: '交卷结束就离开了',
-			okText: '确认',
-			cancelText: '取消',
-			onOk(){
-				
-			}
-		})
+	
 		//api.question.questionWrongWrongs({
 			//km: Number(route.query.subject),
 			//wrongs: wrongList.map(item => {

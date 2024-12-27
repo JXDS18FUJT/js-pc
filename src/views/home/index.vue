@@ -29,6 +29,8 @@
 		<view class="inline-flex w-1200 m-auto h-200 flex-wrap">
 			<view @click="()=>{
 				carTypesIndex=index
+				query.model = carTypes[index].model
+				
 			}" v-for="(item,index) in carTypes" class="w-1/4 flex pt-63 justify-center flex-wrap">
 				<img class="w-126 pb-5" :src="item.icon" />
 				<view class="text-20 w-full text-center block">
@@ -95,21 +97,25 @@
 		icon: xcIcon,
 		name: "轿车",
 		cert: "C1/C2/C3",
+		model:"cart"
 
 	}, {
 		icon: kcIcon,
 		name: "客车",
 		cert: "A1/A2/B1",
+		model:"bus"
 
 	}, {
 		icon: hcIcon,
 		name: "货车",
 		cert: "A2/B2",
+		model:"truck"
 
 	}, {
 		icon: mtcIcon,
 		name: "摩托车",
 		cert: "D/E/F",
+		model:"mtc"
 
 	}])
 	const msg = ref('hello')

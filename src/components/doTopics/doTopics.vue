@@ -1,5 +1,8 @@
 <template>
 	<view class="w-full block">
+		<examScoreMask v-if="examScoreVisible" @close="()=>{
+			examScoreVisible = false
+		}" :zIndex="100" :total="100" :trueNum="trueNum" :falseNum="falseNum"></examScoreMask>
 		<answerAnalyMask @close="()=>{
 			answerAnalyVisible = false
 		}" v-if="answerAnalyVisible" :zIndex="100" :listItem="wrongListItem"></answerAnalyMask>
@@ -98,7 +101,7 @@
 							class="hover:bg-[#EEF1F5FF] cursor-pointer h-40 text-center mr-15 text-20 lh-40 w-124 border-1px border-solid border-[#959799FF] rd-5px">
 							下一题
 						</view>
-						<view @click="submitDriveExam()"
+						<view @click="finishedExam()"
 							class="hover:bg-[#EEF1F5FF] cursor-pointer h-40 text-center mr-15 text-20 lh-40 w-124 border-1px border-solid border-[#959799FF] rd-5px">
 							交卷
 						</view>
@@ -147,7 +150,7 @@
 					<view v-for="(item,index) in list.length" @click="()=>{
 							listIndex = index
 						}" :key="item" class="w-40 h-40 text-center text-[#0A1A33FF] text-14 hover:bg-[#EEF1F5FF] cursor-pointer">
-						<view class="block w-full">{{item}}({{list[index].questionType}})</view>
+						<view class="block w-full">{{item}}</view>
 						<view :class="{
 								'text-green':list[index].isComplete&&!list[index].isError,
 								'text-red':list[index].isComplete&&list[index].isError
@@ -193,19 +196,21 @@
 	import { onMounted, ref } from "vue";
 	import { useDriverExam } from "@/hooks/exam/driverExam";
 	import api from "@/api";
-	import { useRoute } from "vue-router";
+	import { useRoute, useRouter } from "vue-router";
+	import { Modal } from "ant-design-vue";
 	// import answerAnalyMask from '@/components/answerAnalyMask/answerAnalyMask.vue';
 	// import skillExplainMask from '@/components/skillExplainMask/skillExplainMask.vue';
 	export default {
 		name: 'doTopics',
 		setup(props) {
 			const route = useRoute()
-
+			const router = useRouter()
 			const query = route.query
 			const skillExplainVisible = ref(false)
 			const officialExplainVisible = ref(false)
+			const examScoreVisible = ref(false)
 			const backHomePage = () => {
-				window.location.href = './'
+				router.push('./home')
 
 			}
 			let requestFn
@@ -221,7 +226,7 @@
 					requestFn = api.open.question2InfoList({
 						model: query.model as string,
 						subject: query.subject as string,
-						columnAll: query.columnAll as string
+						columnAll: query.columnId as string
 					})
 					break;
 
@@ -233,6 +238,7 @@
 
 			})
 			return {
+				examScoreVisible,
 				skillExplainVisible,
 				officialExplainVisible,
 				backHomePage,
@@ -245,6 +251,20 @@
 			}
 		},
 		methods: {
+			finishedExam() {
+				let that = this
+				Modal.confirm({
+					title: '是否交卷',
+					content: '交卷结束就离开了',
+					okText: '确认',
+					cancelText: '取消',
+					onOk() {
+						that.submitDriveExam(false)
+						that.examScoreVisible = true
+					}
+				})
+
+			},
 			resizeCanvas() {
 				let gridDom = document.getElementById("grid") as HTMLCanvasElement
 				//let ctx = gridDom.getContext('2d') as CanvasRenderingContext2D

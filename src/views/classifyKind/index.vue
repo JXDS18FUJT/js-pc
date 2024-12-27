@@ -88,16 +88,18 @@
 	import api from '@/api/index'
 	import { ref } from 'vue'
 	import { openApi } from '@/api/open/type'
-	import { useRoute } from 'vue-router'
+	import { useRoute, useRouter } from 'vue-router'
 	const list = ref<openApi.question2InfoGetQuestionColumn['data']>([])
 	
 	const route = useRoute()
+	const router = useRouter()
 	const query = ref(route.query as {
 		subject:string,
 		model:string
 	})
 	const backPage = ()=>{
-		window.history.back()
+		
+		router.back()
 	}
 	api.open.question2InfoGetQuestionColumn({
 		subject: 'k'+query.value.subject+'_3',

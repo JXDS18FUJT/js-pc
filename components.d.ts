@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AnswerAnalyMask: typeof import('./src/components/answerAnalyMask/answerAnalyMask.vue')['default']
     DoTopics: typeof import('./src/components/doTopics/doTopics.vue')['default']
+    ExamScoreMask: typeof import('./src/components/examScoreMask/examScoreMask.vue')['default']
     GridBorder: typeof import('./src/components/gridBorder/gridBorder.vue')['default']
     Hello: typeof import('./src/components/hello/hello.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
