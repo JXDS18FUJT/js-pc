@@ -28,7 +28,7 @@
     "@types/howler": "^2.2.12",
     "@unocss/preset-rem-to-px": "^0.63.6",
     "@vitejs/plugin-vue": "^4.1.0",
-    "electron": "^22.0.3",
+    "electron": "^33.2.1",
     "electron-builder": "^23.6.0",
     "postcss-pxtorem": "^6.1.0",
     "typescript": "^5.0.2",
