@@ -3,7 +3,7 @@
 		zIndex:zIndex
 	}" class="w-100vw h-100vh fixed top-0 left-0 bg-[rgba(0,0,0,0.3)] flex flex-wrap justify-center items-center">
 		<view class="bg-[#4688EBFF] pb-20 w-1000 h-auto flex flex-wrap justify-center content-start">
-			<view class="w-full h-50 lh-50  text-24 text-white">答案解析</view>
+			<view class="w-full h-50 lh-50  text-24 text-white">交卷结果</view>
 			<view class="w-full bg-white w-9/10 pt-20 pb-20 pl-20 pr-20">
 				<view class="block">
 					题目总数：{{total}}
